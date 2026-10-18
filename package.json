@@ -1,0 +1,13 @@
+{
+  "name": "polevoy-journal-sync",
+  "version": "0.1.0-rc.1",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "sync": "node sync/server.mjs",
+    "test:sync": "node --test sync/server.test.mjs"
+  }
+}

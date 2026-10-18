@@ -1,0 +1,18 @@
+name: Apple checks
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  journal:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Domain tests
+        run: swift test
+      - name: Generate Xcode project
+        run: brew install xcodegen && xcodegen generate
+      - name: Build iOS application without signing
+        run: xcodebuild -project PolevoyJournal.xcodeproj -scheme PolevoyJournal -sdk iphonesimulator -configuration Debug CODE_SIGNING_ALLOWED=NO build
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Sync protocol tests
+        run: npm run test:sync
